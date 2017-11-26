@@ -120,13 +120,13 @@ int csm_sys_gcm_finish(uint8_t channel, uint8_t *tag)
 }
 
 
-int csm_sys_test_lls_password(uint8_t sap, uint8_t *buf, uint32_t size)
+int csm_sys_get_lls_password(uint8_t sap, uint8_t *array, uint8_t max_size)
 {
     int valid = FALSE;
     (void) sap;
-    (void) buf;
+    (void) array;
 
-    if (size == CSM_DEF_LLS_SIZE)
+    if (max_size == CSM_DEF_LLS_SIZE)
     {
         valid = TRUE;
         // FIXME when the file system will be here

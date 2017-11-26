@@ -112,14 +112,14 @@ int tcp_data_handler(uint8_t channel, memory_t *b, uint32_t payload_size)
             if (ret > 0)
             {
                 // Set Version
-                SET_BE16(&buffer[0], version);
+                PUT_BE16(&buffer[0], version);
 
                 // Swap SSAP and DSAP
-                SET_BE16(&buffer[2], channels[channel].request.llc.dsap);
-                SET_BE16(&buffer[4], channels[channel].request.llc.ssap);
+                PUT_BE16(&buffer[2], channels[channel].request.llc.dsap);
+                PUT_BE16(&buffer[4], channels[channel].request.llc.ssap);
 
                 // Update Cosem Wrapper length
-                SET_BE16(&buffer[6], (uint16_t) ret);
+                PUT_BE16(&buffer[6], (uint16_t) ret);
 
                 // Add wrapper size to the data packet size
                 ret += COSEM_WRAPPER_SIZE;
