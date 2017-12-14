@@ -17,15 +17,6 @@
 #include "bitfield.h"
 #include "server_config.h"
 
-#ifdef TESTS
-static void RunAllTests(void)
-{
-    RUN_TEST_GROUP(CosemArray);
-    RUN_TEST_GROUP(Aes128Gcm);
-    RUN_TEST_GROUP(FileSystem);
-}
-
-#else
 
 const csm_asso_config assos_config[] =
 {
@@ -188,18 +179,12 @@ void csm_init()
     csm_channel_init(&channels[0], NUMBER_OF_CHANNELS, &assos[0], &assos_config[0], NUMBER_OF_ASSOS);
 }
 
-#endif
 
 
 int main(int argc, const char * argv[])
 {
     (void) argc;
     (void) argv;
-
-#ifdef TESTS
-    printf("Starting DLMS/Cosem unit tests\r\nCosem library version: %s\r\n\r\n", CSM_DEF_LIB_VERSION);
-    return UnityMain(argc, argv, RunAllTests);
-#else
 
     uint8_t gBuffer[BUF_SIZE]; // working buffer, keep it private
 
@@ -215,6 +200,5 @@ int main(int argc, const char * argv[])
     printf("Starting DLMS/Cosem example\r\nCosem library version: %s\r\n\r\n", CSM_DEF_LIB_VERSION);
 
     return tcp_server_init(tcp_data_handler, tcp_conn_handler, &buff, TCP_PORT);
-#endif
 }
 
