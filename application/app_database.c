@@ -57,7 +57,7 @@ static int csm_db_check_attribute(csm_db_request *db_request, const db_object_de
         for (uint8_t i = 0U; i < size; i++)
         {
             // Check attribute number and access rights
-            if ((attr->number == db_request->data.id) && (access_rights & attr->access_rights) == access_rights)
+            if ((attr->number == db_request->logical_name.id) && (access_rights & attr->access_rights) == access_rights)
             {
                 // Save the type for application usage
                 db_request->db_type = attr->type;
@@ -84,7 +84,7 @@ static int csm_db_get_object(csm_db_request *db_request, db_obj_handle *handle)
         {
             const db_object_descr *curr_obj = &obj_list->objects[object_index];
             // Check the obis code
-            if ((curr_obj->class_id == db_request->data.class_id) && csm_is_obis_equal(&curr_obj->obis_code, &db_request->data.obis))
+            if ((curr_obj->class_id == db_request->logical_name.class_id) && csm_is_obis_equal(&curr_obj->obis_code, &db_request->logical_name.obis))
             {
                 handle->object       = curr_obj;
                 handle->db_index     = i;
@@ -124,7 +124,7 @@ csm_db_code csm_db_access_func(csm_array *in, csm_array *out, csm_request *reque
     else
     {
         CSM_ERR("[DB] Cosem object not found: ");
-        csm_print_obis(&request->db_request.data);
+        csm_print_obis(&request->db_request.logical_name);
         code = CSM_ERR_OBJECT_NOT_FOUND;
     }
 

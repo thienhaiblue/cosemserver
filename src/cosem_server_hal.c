@@ -120,15 +120,13 @@ int csm_sys_gcm_finish(uint8_t channel, uint8_t *tag)
 }
 
 
-int csm_sys_get_lls_password(uint8_t sap, uint8_t *array, uint8_t max_size)
+void csm_hal_get_lls_password(uint8_t sap, uint8_t *array, uint8_t max_size)
 {
-    int valid = FALSE;
     (void) sap;
     (void) array;
 
     if (max_size == CSM_DEF_LLS_SIZE)
     {
-        valid = TRUE;
         // FIXME when the file system will be here
         /*
         for (uint32_t i = 0U; i < CFG_COSEM_NB_ASSOS; i++)
@@ -142,8 +140,17 @@ int csm_sys_get_lls_password(uint8_t sap, uint8_t *array, uint8_t max_size)
         }
         */
     }
-    return valid;
 }
+
+int csm_hal_decode_selective_access(csm_request *request, csm_array *array)
+{
+    (void) request;
+    (void) array;
+
+    // FIXME: decode selective access for the server
+    return FALSE;
+}
+
 
 uint8_t csm_sys_get_mechanism_id(uint8_t sap)
 {
@@ -164,9 +171,9 @@ uint8_t csm_sys_get_mechanism_id(uint8_t sap)
 }
 
 // TODO: Write a note on the randomize function, it should be NIST compliant (use a target-dependant implementation)
-uint8_t csm_sys_get_random_u8()
+uint8_t csm_hal_get_random_u8(uint8_t min, uint8_t max)
 {
-    return (uint8_t)(rand()%256);
+    return min + rand() % ((max + 1) - min);
 }
 
 

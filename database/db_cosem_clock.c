@@ -26,7 +26,7 @@ csm_db_code db_cosem_clock_func(csm_array *in, csm_array *out, csm_request *requ
             code = CSM_OK;
         }
     }
-    else if (request->type == SVC_SET)
+    else if (request->db_request.service == SVC_SET)
     {
         // Not implemented
     }

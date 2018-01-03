@@ -16,7 +16,7 @@ csm_db_code db_cosem_image_transfer_func(csm_array *in, csm_array *out, csm_requ
 
     if (request->db_request.service == SVC_GET)
     {
-        switch(request->db_request.data.id)
+        switch(request->db_request.logical_name.id)
         {
             case 5:
             if (csm_axdr_wr_boolean(out, 0U))
